@@ -1,54 +1,69 @@
 import { motion } from "framer-motion";
 import { Reveal, Counter } from "./Reveal";
 import {
-  Code2,
-  Rocket,
-  Palette,
-  ShieldCheck,
-  Smartphone,
-  LineChart,
-  Star,
-  Plus,
+  Tv,
+  Globe,
+  Zap,
+  MessageCircle,
+  MonitorSmartphone,
+  Lock,
+  Gift,
+  Bot,
+  Headphones,
+  RefreshCw,
+  Wallet,
+  UserCircle,
+  BookOpen,
+  LayoutGrid,
+  Check,
+  ArrowRight,
 } from "lucide-react";
-import { useState } from "react";
+
+const quickAccess = [
+  { icon: Gift, label: "Teste Grátis", href: "#teste", active: true, color: "var(--magenta)" },
+  { icon: Bot, label: "Atendente IA", href: "#suporte", color: "var(--cyan)" },
+  { icon: Headphones, label: "Humano", sub: "09:00–18:00", href: "#suporte", color: "var(--cyan)" },
+  { icon: RefreshCw, label: "Renovar Plano", href: "#planos", color: "var(--cyan)" },
+  { icon: Wallet, label: "Indique e Ganhe", href: "#indique", color: "var(--lime)" },
+  { icon: UserCircle, label: "Área do Cliente", href: "#conta", color: "var(--magenta)" },
+  { icon: BookOpen, label: "Tutoriais", href: "#suporte", color: "var(--cyan)" },
+  { icon: LayoutGrid, label: "Planos", href: "#planos", color: "var(--cyan)" },
+];
 
 const stats = [
-  { to: 1000, suffix: "+", label: "Projetos Entregues" },
-  { to: 99, suffix: "%", label: "Satisfação" },
-  { to: 5, suffix: "+", label: "Anos no Mercado" },
-  { to: 48, suffix: "h", label: "Suporte Médio" },
+  { to: 600, suffix: "K+", label: "Conteúdos" },
+  { to: 4, suffix: "K", label: "Qualidade" },
+  { to: 24, suffix: "h", label: "Suporte" },
+  { to: 5, suffix: "min", label: "Ativação" },
 ];
 
-const services = [
-  { icon: Code2, title: "Desenvolvimento Web", desc: "Aplicações rápidas, escaláveis e modernas com a melhor stack do mercado." },
-  { icon: Palette, title: "UI / UX Design", desc: "Interfaces que encantam e convertem, pensadas pixel a pixel." },
-  { icon: Rocket, title: "Performance", desc: "Sites otimizados a 60fps, prontos para escalar e ranquear." },
-  { icon: Smartphone, title: "Mobile First", desc: "Experiências impecáveis em qualquer tela, do celular ao desktop." },
-  { icon: LineChart, title: "Growth & SEO", desc: "Estratégia orientada a dados para acelerar seu crescimento." },
-  { icon: ShieldCheck, title: "Segurança", desc: "Infraestrutura confiável com as melhores práticas de proteção." },
+const features = [
+  { icon: Tv, title: "600K+ Conteúdos", desc: "Canais, filmes, séries, desenhos e documentários. Catálogo atualizado diariamente com o que há de melhor.", color: "var(--cyan)" },
+  { icon: Globe, title: "Todo o Futebol", desc: "Brasileirão, Libertadores, Champions League, Premier League. Todas as ligas ao vivo, sem delay.", color: "var(--cyan)" },
+  { icon: Zap, title: "Zero Travamento", desc: "Servidores dedicados de alta performance. Assista o gol no momento exato — sem buffering.", color: "var(--magenta)" },
+  { icon: MessageCircle, title: "Suporte Humano", desc: "Atendimento real no WhatsApp, 7 dias por semana, 24 horas. Não é robô — é gente de verdade.", color: "var(--cyan)" },
+  { icon: MonitorSmartphone, title: "Qualquer Dispositivo", desc: "Smart TV, TV Box, Celular, Fire Stick, Roku, PC, Mac. Funciona em tudo, ativação imediata.", color: "var(--cyan)" },
+  { icon: Lock, title: "Pagamento Seguro", desc: "PIX com liberação instantânea. Sem dados de cartão, sem assinatura recorrente. Cancele quando quiser.", color: "var(--lime)" },
 ];
 
-const projects = [
-  { tag: "SaaS", title: "Painel Nebula", hue: "var(--cyan)" },
-  { tag: "Fintech", title: "App Vortex Pay", hue: "var(--magenta)" },
-  { tag: "E-commerce", title: "Loja Pulse", hue: "var(--lime)" },
-  { tag: "AI", title: "Plataforma Helix", hue: "var(--cyan)" },
-  { tag: "Branding", title: "Identidade Onyx", hue: "var(--magenta)" },
-  { tag: "Dashboard", title: "Analytics Flux", hue: "var(--lime)" },
+const plans = [
+  { title: "1 Mês · 1 Tela", price: "12,49", info: "30 dias · 1 dispositivo", badge: "Popular" },
+  { title: "1 Mês · 2 Telas", price: "22,49", info: "30 dias · 2 dispositivos" },
+  { title: "2 Meses · 1 Tela", price: "22,00", info: "60 dias · 1 dispositivo" },
+  { title: "2 Meses · 2 Telas", price: "44,00", info: "60 dias · 2 dispositivos" },
+  { title: "3 Meses · 1 Tela", price: "33,00", info: "90 dias · 1 dispositivo" },
+  { title: "6 Meses · 1 Tela", price: "55,00", info: "180 dias · economia" },
+  { title: "12 Meses · 1 Tela", price: "95,00", info: "365 dias · melhor custo-benefício", badge: "Mais Vendido", featured: true },
 ];
 
-const testimonials = [
-  { name: "Marina Costa", role: "CEO, Lumen", text: "Entregaram além do esperado. O site novo triplicou nossas conversões em 2 meses.", rating: 5 },
-  { name: "Rafael Mendes", role: "CTO, Vortex", text: "Time técnico impecável e velocidade absurda. Recomendo de olhos fechados.", rating: 5 },
-  { name: "Júlia Ramos", role: "Founder, Pulse", text: "Design lindo, performance perfeita e suporte humano de verdade. Nota 10.", rating: 5 },
+const referralSteps = [
+  { n: "01", label: "Cadastre-se grátis" },
+  { n: "02", label: "Receba seu link" },
+  { n: "03", label: "Divulgue" },
+  { n: "04", label: "Receba via PIX" },
 ];
 
-const faqs = [
-  { q: "Quanto tempo leva um projeto?", a: "Projetos típicos levam de 2 a 6 semanas, dependendo do escopo. Definimos um cronograma claro na primeira reunião." },
-  { q: "Vocês oferecem suporte depois da entrega?", a: "Sim. Todos os planos incluem suporte humano e manutenção contínua para garantir tudo funcionando perfeitamente." },
-  { q: "Como funciona o pagamento?", a: "Trabalhamos com parcelas flexíveis. Uma entrada inicial e o restante conforme as etapas do projeto são concluídas." },
-  { q: "Posso pedir alterações durante o projeto?", a: "Com certeza. Nosso processo é colaborativo, com rodadas de revisão para alinhar cada detalhe ao seu gosto." },
-];
+const whatsapps = ["(21) 97378-1548", "(21) 96528-5952", "(21) 99737-1178"];
 
 function Eyebrow({ children }: { children: string }) {
   return (
@@ -64,35 +79,45 @@ export function Sections() {
       {/* HERO */}
       <section id="home" className="flex min-h-screen flex-col items-center justify-center px-6 pt-28 text-center">
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-cyan/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-lime" /> Sistema Online · Estúdio Digital
+          <span className="inline-flex items-center gap-2 rounded-md border border-cyan/40 bg-cyan/5 px-4 py-1.5 font-display text-[11px] font-semibold uppercase tracking-widest text-cyan">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-lime" /> Sistema Online · Teste Grátis · 1 Hora · Sem Cartão
           </span>
         </Reveal>
         <Reveal delay={0.1}>
-          <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[1.05] tracking-tight md:text-7xl">
-            Sua marca nunca mais vai{" "}
-            <span className="text-glow-cyan">travar.</span>
+          <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[1.02] tracking-tight md:text-7xl">
+            <span className="text-glow-magenta">Cancele os streamings</span>{" "}
+            e tenha <span className="text-glow-cyan">tudo em uma só tela.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.2}>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            Criamos experiências digitais de alta performance que convertem
-            visitantes em clientes. Design premium, código impecável.
+          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+            Mais de <span className="font-bold text-foreground">600 mil conteúdos</span> — canais ao vivo, filmes, séries e todo o futebol.
+            Qualidade <span className="font-bold text-foreground">HD/4K</span>, suporte humano 24h e ativação em 5 minutos.
           </p>
         </Reveal>
-        <Reveal delay={0.3}>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-            <a href="#cta" className="rounded-xl bg-cyan px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-primary-foreground transition-all hover:glow-cyan hover:brightness-110">
-              Começar Agora
-            </a>
-            <a href="#servicos" className="rounded-xl border border-cyan/50 px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-cyan transition-all hover:bg-cyan/10">
-              Ver Serviços
-            </a>
-          </div>
-        </Reveal>
+
+        {/* QUICK ACCESS GRID */}
+        <div id="teste" className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
+          {quickAccess.map((q, i) => (
+            <Reveal key={q.label} delay={i * 0.05}>
+              <motion.a
+                href={q.href}
+                whileHover={{ scale: 1.04 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className={`flex h-full flex-col items-center justify-center gap-2 rounded-xl border bg-card/40 px-3 py-5 backdrop-blur transition-all ${
+                  q.active ? "border-cyan/70 glow-cyan" : "border-border hover:border-cyan/50"
+                }`}
+              >
+                <q.icon className="h-6 w-6" style={{ color: q.color }} />
+                <span className="font-display text-[11px] font-bold uppercase leading-tight tracking-wide">{q.label}</span>
+                {q.sub && <span className="font-display text-[10px] font-bold text-lime">{q.sub}</span>}
+              </motion.a>
+            </Reveal>
+          ))}
+        </div>
 
         {/* STATS */}
-        <div className="mt-20 grid w-full max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border md:grid-cols-4">
+        <div className="mt-14 grid w-full max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border md:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.1} className="bg-card/40 p-6 text-center backdrop-blur">
               <div className="font-display text-3xl font-black text-glow-cyan md:text-4xl">
@@ -106,24 +131,24 @@ export function Sections() {
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section id="servicos" className="px-6 py-28">
+      {/* FEATURES */}
+      <section id="catalogo" className="px-6 py-28">
         <div className="mx-auto max-w-6xl">
           <Reveal className="text-center">
-            <Eyebrow>O que fazemos</Eyebrow>
+            <Eyebrow>Por que DezPila</Eyebrow>
             <h2 className="text-4xl font-black md:text-5xl">
-              Feito pra quem <span className="text-glow-magenta">não aceita menos.</span>
+              Feito pra quem <span className="text-glow-cyan">não aceita menos.</span>
             </h2>
           </Reveal>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, i) => (
+            {features.map((s, i) => (
               <Reveal key={s.title} delay={(i % 3) * 0.1}>
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="corner-frame group h-full rounded-xl border border-border bg-card/40 p-7 backdrop-blur transition-colors hover:border-cyan/60 hover:glow-cyan"
                 >
-                  <div className="mb-5 inline-flex rounded-lg border border-cyan/30 bg-cyan/10 p-3 text-cyan">
+                  <div className="mb-5 inline-flex rounded-lg border p-3" style={{ borderColor: `color-mix(in oklab, ${s.color} 30%, transparent)`, background: `color-mix(in oklab, ${s.color} 10%, transparent)`, color: s.color }}>
                     <s.icon className="h-6 w-6" />
                   </div>
                   <h3 className="font-display text-lg font-bold uppercase tracking-wide">{s.title}</h3>
@@ -135,141 +160,132 @@ export function Sections() {
         </div>
       </section>
 
-      {/* PORTFOLIO */}
-      <section id="portfolio" className="px-6 py-28">
+      {/* PLANS */}
+      <section id="planos" className="px-6 py-28">
         <div className="mx-auto max-w-6xl">
           <Reveal className="text-center">
-            <Eyebrow>Portfólio</Eyebrow>
+            <Eyebrow>Planos e Preços</Eyebrow>
             <h2 className="text-4xl font-black md:text-5xl">
-              Projetos que <span className="text-glow-cyan">brilham.</span>
+              Escolha o seu <span className="text-glow-cyan">plano.</span>
             </h2>
+            <p className="mt-4 text-sm uppercase tracking-wider text-muted-foreground">
+              Pagamento via PIX · Ativação em 5 minutos · Cancele quando quiser
+            </p>
           </Reveal>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((p, i) => (
-              <Reveal key={p.title} delay={(i % 3) * 0.1}>
-                <motion.div
-                  whileHover={{ y: -6 }}
-                  className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-xl border border-border p-6"
-                  style={{ background: `linear-gradient(160deg, color-mix(in oklab, ${p.hue} 22%, var(--card)), var(--card))` }}
-                >
-                  <div
-                    className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{ background: `radial-gradient(400px circle at 50% 0%, color-mix(in oklab, ${p.hue} 28%, transparent), transparent 70%)` }}
-                  />
-                  <span className="relative z-10 mb-1 w-fit rounded-full border border-white/15 bg-black/30 px-3 py-1 text-xs font-semibold uppercase tracking-wider" style={{ color: p.hue }}>
-                    {p.tag}
-                  </span>
-                  <h3 className="relative z-10 font-display text-xl font-bold">{p.title}</h3>
-                </motion.div>
-              </Reveal>
-            ))}
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {plans.map((p, i) => {
+              const accent = p.featured ? "var(--lime)" : "var(--cyan)";
+              return (
+                <Reveal key={p.title} delay={(i % 4) * 0.08}>
+                  <motion.div
+                    whileHover={{ y: -6 }}
+                    className="corner-frame relative flex h-full flex-col rounded-xl border bg-card/40 p-6 backdrop-blur transition-colors"
+                    style={{ borderColor: `color-mix(in oklab, ${accent} 35%, transparent)` }}
+                  >
+                    {p.badge && (
+                      <span
+                        className="absolute -top-3 right-4 rounded-md px-3 py-1 font-display text-[10px] font-bold uppercase tracking-wider text-primary-foreground"
+                        style={{ background: accent }}
+                      >
+                        {p.badge}
+                      </span>
+                    )}
+                    <p className="font-display text-xs font-bold uppercase tracking-wider text-muted-foreground">{p.title}</p>
+                    <div className="mt-3 font-display text-3xl font-black" style={{ color: accent, textShadow: `0 0 18px color-mix(in oklab, ${accent} 60%, transparent)` }}>
+                      R$<span className="text-4xl">{p.price.split(",")[0]}</span><span className="text-xl">,{p.price.split(",")[1]}</span>
+                    </div>
+                    <p className="mt-2 text-xs text-muted-foreground">{p.info}</p>
+                    <a
+                      href="#suporte"
+                      className="mt-auto block rounded-lg border px-4 py-3 text-center font-display text-sm font-bold uppercase tracking-wide transition-all hover:brightness-125"
+                      style={{ borderColor: accent, color: accent, marginTop: "1.5rem" }}
+                    >
+                      Ativar
+                    </a>
+                  </motion.div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section id="depoimentos" className="px-6 py-28">
-        <div className="mx-auto max-w-6xl">
+      {/* REFERRAL */}
+      <section id="indique" className="px-6 py-28">
+        <div className="mx-auto max-w-4xl">
           <Reveal className="text-center">
-            <Eyebrow>Depoimentos</Eyebrow>
+            <Eyebrow>Programa de Indicação</Eyebrow>
             <h2 className="text-4xl font-black md:text-5xl">
-              Quem confia, <span className="text-glow-magenta">recomenda.</span>
+              Indique e <span className="text-glow-magenta">ganhe.</span>
             </h2>
           </Reveal>
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {testimonials.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.1}>
-                <div className="h-full rounded-xl border border-border bg-card/40 p-7 backdrop-blur transition-colors hover:border-magenta/50">
-                  <div className="mb-4 flex gap-1 text-magenta">
-                    {Array.from({ length: t.rating }).map((_, k) => (
-                      <Star key={k} className="h-4 w-4 fill-current" />
-                    ))}
+          <Reveal delay={0.1}>
+            <div className="corner-frame relative mt-12 overflow-hidden rounded-2xl border border-magenta/50 bg-card/40 p-10 text-center backdrop-blur glow-magenta">
+              <div className="absolute left-1/2 top-0 h-60 w-96 -translate-x-1/2 rounded-full opacity-50 blur-3xl"
+                style={{ background: "radial-gradient(circle, color-mix(in oklab, var(--magenta) 40%, transparent), transparent)" }}
+              />
+              <div className="relative font-display text-7xl font-black text-glow-magenta md:text-8xl">
+                <Counter to={85} suffix="%" />
+              </div>
+              <p className="relative mt-1 font-display text-xs font-bold uppercase tracking-[0.3em] text-magenta/80">
+                De comissão por venda
+              </p>
+              <h3 className="relative mt-7 font-display text-xl font-bold">Ganhe dinheiro indicando a DezPila</h3>
+              <p className="relative mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+                Cadastre-se grátis, receba seu link exclusivo e ganhe comissão a cada venda confirmada. Top 3 do ranking mensal ganham até 85%. Saque via PIX.
+              </p>
+              <a href="#suporte" className="relative mt-7 inline-flex items-center gap-2 rounded-xl border border-magenta px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-magenta transition-all hover:bg-magenta/15 hover:glow-magenta">
+                Começar a indicar <ArrowRight className="h-4 w-4" />
+              </a>
+              <div className="relative mt-10 grid grid-cols-2 gap-6 border-t border-magenta/20 pt-8 sm:grid-cols-4">
+                {referralSteps.map((s) => (
+                  <div key={s.n}>
+                    <div className="font-display text-2xl font-black text-magenta">{s.n}</div>
+                    <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">{s.label}</div>
                   </div>
-                  <p className="text-sm leading-relaxed text-foreground/90">"{t.text}"</p>
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-cyan to-magenta font-display font-bold text-primary-foreground">
-                      {t.name.charAt(0)}
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold">{t.name}</div>
-                      <div className="text-xs text-muted-foreground">{t.role}</div>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="px-6 py-28">
+      {/* SUPPORT */}
+      <section id="suporte" className="px-6 py-28">
         <div className="mx-auto max-w-3xl">
           <Reveal className="text-center">
-            <Eyebrow>Perguntas Frequentes</Eyebrow>
+            <Eyebrow>Suporte</Eyebrow>
             <h2 className="text-4xl font-black md:text-5xl">
-              Tudo o que você <span className="text-glow-cyan">precisa saber.</span>
+              Fale com a <span className="text-glow-cyan">gente.</span>
             </h2>
           </Reveal>
-          <div className="mt-12 space-y-3">
-            {faqs.map((f, i) => (
-              <Reveal key={f.q} delay={i * 0.05}>
-                <FaqItem q={f.q} a={f.a} />
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={0.1}>
+            <div className="corner-frame mt-12 rounded-2xl border border-lime/50 bg-card/40 p-8 text-center backdrop-blur" style={{ boxShadow: "0 0 28px -6px color-mix(in oklab, var(--lime) 45%, transparent)" }}>
+              <p className="font-display text-lg font-bold text-lime">// WhatsApp</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Atendimento humano, rápido e sem robô. 7 dias por semana.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                {whatsapps.map((w) => (
+                  <a
+                    key={w}
+                    href={`https://wa.me/55${w.replace(/\D/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg border border-lime/50 bg-lime/5 px-5 py-3 font-display text-sm font-bold tracking-wider text-lime transition-all hover:bg-lime/15"
+                  >
+                    {w}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="cta" className="px-6 py-28">
-        <Reveal className="mx-auto max-w-4xl">
-          <div className="corner-frame relative overflow-hidden rounded-2xl border border-magenta/40 bg-card/40 p-12 text-center backdrop-blur glow-magenta">
-            <div className="absolute left-1/2 top-0 h-60 w-96 -translate-x-1/2 rounded-full opacity-50 blur-3xl"
-              style={{ background: "radial-gradient(circle, color-mix(in oklab, var(--magenta) 40%, transparent), transparent)" }}
-            />
-            <h2 className="relative text-4xl font-black md:text-5xl">
-              Pronto para <span className="text-glow-magenta">decolar?</span>
-            </h2>
-            <p className="relative mx-auto mt-4 max-w-md text-muted-foreground">
-              Vamos transformar sua ideia em uma experiência digital memorável.
-              Resposta em até 24 horas.
-            </p>
-            <a href="#home" className="relative mt-8 inline-block rounded-xl bg-magenta px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-primary-foreground transition-all hover:brightness-110 hover:glow-magenta">
-              Falar com a equipe
-            </a>
-          </div>
-        </Reveal>
-      </section>
-
-      <footer className="border-t border-border px-6 py-10 text-center text-xs uppercase tracking-widest text-muted-foreground">
-        © 2026 NovaPulse · Estúdio Digital Premium
+      <footer id="conta" className="border-t border-border px-6 py-10 text-center font-display text-xs uppercase tracking-widest text-muted-foreground">
+        © 2026 DezPila · IPTV Premium · <span className="text-cyan">IA Support</span> · <span className="text-lime">WhatsApp</span>
       </footer>
     </main>
-  );
-}
-
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="overflow-hidden rounded-xl border border-border bg-card/40 backdrop-blur transition-colors hover:border-cyan/40">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-      >
-        <span className="font-display text-sm font-bold uppercase tracking-wide md:text-base">{q}</span>
-        <motion.span animate={{ rotate: open ? 45 : 0 }} className="text-cyan">
-          <Plus className="h-5 w-5" />
-        </motion.span>
-      </button>
-      <motion.div
-        initial={false}
-        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="overflow-hidden"
-      >
-        <p className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground">{a}</p>
-      </motion.div>
-    </div>
   );
 }
