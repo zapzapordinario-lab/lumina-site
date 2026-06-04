@@ -1,29 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { InteractiveBackground } from "@/components/InteractiveBackground";
+import { FloatingNav } from "@/components/FloatingNav";
+import { Sections } from "@/components/Sections";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "NovaPulse — Estúdio Digital Premium de Alta Performance" },
+      { name: "description", content: "Criamos sites e aplicações de alta performance que convertem. Design premium, código impecável e suporte humano 24h." },
+      { property: "og:title", content: "NovaPulse — Estúdio Digital Premium" },
+      { property: "og:description", content: "Experiências digitais de alta performance que transformam visitantes em clientes." },
+      { property: "og:type", content: "website" },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="relative min-h-screen">
+      <InteractiveBackground />
+      <FloatingNav />
+      <Sections />
     </div>
   );
 }
