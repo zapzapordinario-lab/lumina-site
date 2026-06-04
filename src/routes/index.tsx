@@ -6,10 +6,10 @@ import { Sections } from "@/components/Sections";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NovaPulse — Estúdio Digital Premium de Alta Performance" },
-      { name: "description", content: "Criamos sites e aplicações de alta performance que convertem. Design premium, código impecável e suporte humano 24h." },
-      { property: "og:title", content: "NovaPulse — Estúdio Digital Premium" },
-      { property: "og:description", content: "Experiências digitais de alta performance que transformam visitantes em clientes." },
+      { title: "DezPila — IPTV Premium 600K+ Conteúdos em HD/4K" },
+      { name: "description", content: "Cancele os streamings e tenha tudo em uma só tela. 600 mil conteúdos, todo o futebol ao vivo, HD/4K, suporte humano 24h e ativação em 5 minutos via PIX." },
+      { property: "og:title", content: "DezPila — IPTV Premium" },
+      { property: "og:description", content: "Cancele os streamings e tenha tudo em uma só tela. Canais, filmes, séries e todo o futebol em HD/4K." },
       { property: "og:type", content: "website" },
     ],
   }),
