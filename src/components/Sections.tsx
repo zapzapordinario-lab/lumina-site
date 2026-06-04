@@ -15,7 +15,6 @@ import {
   UserCircle,
   BookOpen,
   LayoutGrid,
-  Check,
   ArrowRight,
 } from "lucide-react";
 
