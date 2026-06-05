@@ -95,7 +95,9 @@ export function FloatingNav() {
               ))}
               <li>
                 <a
-                  href="#teste"
+                  href="https://wa.me/5588998044487"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
                   className="mt-1 block rounded-lg bg-cyan px-3 py-2 text-center text-sm font-bold uppercase tracking-wide text-primary-foreground"
                 >
