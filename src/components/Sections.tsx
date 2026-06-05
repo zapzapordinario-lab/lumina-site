@@ -241,7 +241,7 @@ export function Sections() {
               <p className="relative mx-auto mt-3 max-w-md text-sm text-muted-foreground">
                 Cadastre-se grátis, receba seu link exclusivo e ganhe comissão a cada venda confirmada. Top 3 do ranking mensal ganham até 85%. Saque via PIX.
               </p>
-              <a href="#suporte" className="relative mt-7 inline-flex items-center gap-2 rounded-xl border border-magenta px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-magenta transition-all hover:bg-magenta/15 hover:glow-magenta">
+              <a href={primaryWa} target="_blank" rel="noopener noreferrer" className="relative mt-7 inline-flex items-center gap-2 rounded-xl border border-magenta px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-magenta transition-all hover:bg-magenta/15 hover:glow-magenta">
                 Começar a indicar <ArrowRight className="h-4 w-4" />
               </a>
               <div className="relative mt-10 grid grid-cols-2 gap-6 border-t border-magenta/20 pt-8 sm:grid-cols-4">
