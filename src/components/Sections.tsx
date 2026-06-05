@@ -105,6 +105,8 @@ export function Sections() {
             <Reveal key={q.label} delay={i * 0.05}>
               <motion.a
                 href={q.href}
+                target={q.href.startsWith("http") ? "_blank" : undefined}
+                rel={q.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 whileHover={{ scale: 1.04 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className={`flex h-full flex-col items-center justify-center gap-2 rounded-xl border bg-card/40 px-3 py-5 backdrop-blur transition-all ${
