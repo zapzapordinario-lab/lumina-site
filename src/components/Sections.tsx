@@ -18,14 +18,16 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+const PRIMARY_WA = "https://wa.me/5588998044487";
+
 const quickAccess = [
-  { icon: Gift, label: "Teste Grátis", href: "#teste", active: true, color: "var(--magenta)" },
-  { icon: Bot, label: "Atendente IA", href: "#suporte", color: "var(--cyan)" },
-  { icon: Headphones, label: "Humano", sub: "09:00–18:00", href: "#suporte", color: "var(--cyan)" },
+  { icon: Gift, label: "Teste Grátis", href: PRIMARY_WA, active: true, color: "var(--magenta)" },
+  { icon: Bot, label: "Atendente IA", href: PRIMARY_WA, color: "var(--cyan)" },
+  { icon: Headphones, label: "Humano", sub: "09:00–18:00", href: PRIMARY_WA, color: "var(--cyan)" },
   { icon: RefreshCw, label: "Renovar Plano", href: "#planos", color: "var(--cyan)" },
   { icon: Wallet, label: "Indique e Ganhe", href: "#indique", color: "var(--lime)" },
-  { icon: UserCircle, label: "Área do Cliente", href: "#conta", color: "var(--magenta)" },
-  { icon: BookOpen, label: "Tutoriais", href: "#suporte", color: "var(--cyan)" },
+  { icon: UserCircle, label: "Área do Cliente", href: PRIMARY_WA, color: "var(--magenta)" },
+  { icon: BookOpen, label: "Tutoriais", href: PRIMARY_WA, color: "var(--cyan)" },
   { icon: LayoutGrid, label: "Planos", href: "#planos", color: "var(--cyan)" },
 ];
 
