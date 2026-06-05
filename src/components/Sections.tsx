@@ -86,8 +86,8 @@ export function Sections() {
         </Reveal>
         <Reveal delay={0.1}>
           <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[1.02] tracking-tight md:text-7xl">
-            <span className="text-glow-magenta">Cancele os streamings</span>{" "}
-            e tenha <span className="text-glow-cyan">tudo em uma só tela.</span>
+            <span className="text-glow-magenta">Pare de pagar por 5 streamings.</span>{" "}
+            <span className="text-glow-cyan">Tenha tudo aqui.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.2}>
