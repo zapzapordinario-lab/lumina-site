@@ -201,7 +201,9 @@ export function Sections() {
                     </div>
                     <p className="mt-2 text-xs text-muted-foreground">{p.info}</p>
                     <a
-                      href="#suporte"
+                      href={primaryWa}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="mt-auto block rounded-lg border px-4 py-3 text-center font-display text-sm font-bold uppercase tracking-wide transition-all hover:brightness-125"
                       style={{ borderColor: accent, color: accent, marginTop: "1.5rem" }}
                     >
