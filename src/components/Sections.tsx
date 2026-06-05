@@ -62,7 +62,9 @@ const referralSteps = [
   { n: "04", label: "Receba via PIX" },
 ];
 
-const whatsapps = ["(21) 97378-1548", "(21) 96528-5952", "(21) 99737-1178"];
+const whatsapps = ["(88) 99804-4487", "(88) 92000-9431"];
+const waLink = (n: string) => `https://wa.me/55${n.replace(/\D/g, "")}`;
+const primaryWa = waLink(whatsapps[0]);
 
 function Eyebrow({ children }: { children: string }) {
   return (
