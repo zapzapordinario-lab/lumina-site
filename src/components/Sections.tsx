@@ -166,46 +166,8 @@ export function Sections() {
         </div>
       </section>
 
-      {/* FREE TRIAL CTA */}
-      <section id="teste-gratis" className="px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <Reveal>
-            <div className="corner-frame relative overflow-hidden rounded-3xl border border-cyan/50 bg-card/40 px-6 py-16 text-center backdrop-blur glow-cyan">
-              <div
-                className="pointer-events-none absolute left-1/2 top-1/2 h-80 w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-50 blur-3xl"
-                style={{ background: "radial-gradient(circle, color-mix(in oklab, var(--magenta) 35%, transparent), transparent 70%)" }}
-              />
-              <h2 className="relative text-6xl font-black leading-[0.95] tracking-tight md:text-8xl">
-                <span className="text-foreground">Teste é</span>
-                <br />
-                <span className="text-glow-magenta">grátis.</span>
-              </h2>
-              <p className="relative mt-5 font-display text-2xl font-bold uppercase tracking-wide text-muted-foreground md:text-3xl">
-                Sem cartão.
-              </p>
-              <p className="relative mx-auto mt-6 max-w-md text-base text-muted-foreground">
-                1 hora completa para testar sem compromisso. Se gostar, escolha seu plano e ative em 5 minutos.
-              </p>
-              <motion.a
-                href={primaryWa}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="relative mt-9 inline-flex items-center gap-2 rounded-xl border border-cyan bg-cyan/10 px-9 py-4 font-display text-base font-bold uppercase tracking-wide text-cyan transition-all hover:bg-cyan/20 hover:glow-cyan"
-              >
-                Começar Teste Grátis <ArrowRight className="h-5 w-5" />
-              </motion.a>
-              <div className="relative mt-4">
-                <a href="#planos" className="font-display text-xs font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground">
-                  Ver Planos
-                </a>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* FREE TRIAL WIZARD */}
+      <FreeTrialWizard />
 
       {/* PLANS */}
       <section id="planos" className="px-6 py-28">
