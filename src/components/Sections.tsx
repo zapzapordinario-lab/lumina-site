@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Reveal, Counter } from "./Reveal";
+import { FreeTrialWizard } from "./FreeTrialWizard";
 import {
   Tv,
   Globe,
