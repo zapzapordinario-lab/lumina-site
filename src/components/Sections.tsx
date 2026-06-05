@@ -18,14 +18,16 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+const PRIMARY_WA = "https://wa.me/5588998044487";
+
 const quickAccess = [
-  { icon: Gift, label: "Teste Grátis", href: "#teste", active: true, color: "var(--magenta)" },
-  { icon: Bot, label: "Atendente IA", href: "#suporte", color: "var(--cyan)" },
-  { icon: Headphones, label: "Humano", sub: "09:00–18:00", href: "#suporte", color: "var(--cyan)" },
+  { icon: Gift, label: "Teste Grátis", href: PRIMARY_WA, active: true, color: "var(--magenta)" },
+  { icon: Bot, label: "Atendente IA", href: PRIMARY_WA, color: "var(--cyan)" },
+  { icon: Headphones, label: "Humano", sub: "09:00–18:00", href: PRIMARY_WA, color: "var(--cyan)" },
   { icon: RefreshCw, label: "Renovar Plano", href: "#planos", color: "var(--cyan)" },
   { icon: Wallet, label: "Indique e Ganhe", href: "#indique", color: "var(--lime)" },
-  { icon: UserCircle, label: "Área do Cliente", href: "#conta", color: "var(--magenta)" },
-  { icon: BookOpen, label: "Tutoriais", href: "#suporte", color: "var(--cyan)" },
+  { icon: UserCircle, label: "Área do Cliente", href: PRIMARY_WA, color: "var(--magenta)" },
+  { icon: BookOpen, label: "Tutoriais", href: PRIMARY_WA, color: "var(--cyan)" },
   { icon: LayoutGrid, label: "Planos", href: "#planos", color: "var(--cyan)" },
 ];
 
@@ -62,7 +64,9 @@ const referralSteps = [
   { n: "04", label: "Receba via PIX" },
 ];
 
-const whatsapps = ["(21) 97378-1548", "(21) 96528-5952", "(21) 99737-1178"];
+const whatsapps = ["(88) 99804-4487", "(88) 92000-9431"];
+const waLink = (n: string) => `https://wa.me/55${n.replace(/\D/g, "")}`;
+const primaryWa = waLink(whatsapps[0]);
 
 function Eyebrow({ children }: { children: string }) {
   return (
@@ -84,8 +88,8 @@ export function Sections() {
         </Reveal>
         <Reveal delay={0.1}>
           <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[1.02] tracking-tight md:text-7xl">
-            <span className="text-glow-magenta">Cancele os streamings</span>{" "}
-            e tenha <span className="text-glow-cyan">tudo em uma só tela.</span>
+            <span className="text-glow-magenta">Pare de pagar por 5 streamings.</span>{" "}
+            <span className="text-glow-cyan">Tenha tudo aqui.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.2}>
@@ -101,6 +105,8 @@ export function Sections() {
             <Reveal key={q.label} delay={i * 0.05}>
               <motion.a
                 href={q.href}
+                target={q.href.startsWith("http") ? "_blank" : undefined}
+                rel={q.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 whileHover={{ scale: 1.04 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className={`flex h-full flex-col items-center justify-center gap-2 rounded-xl border bg-card/40 px-3 py-5 backdrop-blur transition-all ${
@@ -195,7 +201,9 @@ export function Sections() {
                     </div>
                     <p className="mt-2 text-xs text-muted-foreground">{p.info}</p>
                     <a
-                      href="#suporte"
+                      href={primaryWa}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="mt-auto block rounded-lg border px-4 py-3 text-center font-display text-sm font-bold uppercase tracking-wide transition-all hover:brightness-125"
                       style={{ borderColor: accent, color: accent, marginTop: "1.5rem" }}
                     >
@@ -233,7 +241,7 @@ export function Sections() {
               <p className="relative mx-auto mt-3 max-w-md text-sm text-muted-foreground">
                 Cadastre-se grátis, receba seu link exclusivo e ganhe comissão a cada venda confirmada. Top 3 do ranking mensal ganham até 85%. Saque via PIX.
               </p>
-              <a href="#suporte" className="relative mt-7 inline-flex items-center gap-2 rounded-xl border border-magenta px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-magenta transition-all hover:bg-magenta/15 hover:glow-magenta">
+              <a href={primaryWa} target="_blank" rel="noopener noreferrer" className="relative mt-7 inline-flex items-center gap-2 rounded-xl border border-magenta px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-magenta transition-all hover:bg-magenta/15 hover:glow-magenta">
                 Começar a indicar <ArrowRight className="h-4 w-4" />
               </a>
               <div className="relative mt-10 grid grid-cols-2 gap-6 border-t border-magenta/20 pt-8 sm:grid-cols-4">
