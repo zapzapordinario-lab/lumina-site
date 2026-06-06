@@ -81,6 +81,20 @@
 }
 
 @layer utilities {
+  .inp {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--background) 60%, transparent);
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .inp:focus {
+    border-color: var(--cyan);
+  }
   .grid-bg {
     background-image:
       linear-gradient(to right, color-mix(in oklab, var(--cyan) 7%, transparent) 1px, transparent 1px),
