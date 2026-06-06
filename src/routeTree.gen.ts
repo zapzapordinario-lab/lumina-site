@@ -19,6 +19,7 @@ import { Route as AdminIptvRouteImport } from './routes/admin.iptv'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
 import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
+import { Route as AcessoTokenRouteImport } from './routes/acesso.$token'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -70,11 +71,17 @@ const AdminAutomationRoute = AdminAutomationRouteImport.update({
   path: '/automation',
   getParentRoute: () => AdminRoute,
 } as any)
+const AcessoTokenRoute = AcessoTokenRouteImport.update({
+  id: '/acesso/$token',
+  path: '/acesso/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
@@ -149,6 +161,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
+  AcessoTokenRoute: typeof AcessoTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -223,6 +236,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAutomationRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/acesso/$token': {
+      id: '/acesso/$token'
+      path: '/acesso/$token'
+      fullPath: '/acesso/$token'
+      preLoaderRoute: typeof AcessoTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -252,6 +272,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
+  AcessoTokenRoute: AcessoTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
