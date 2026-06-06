@@ -86,9 +86,6 @@ function AutomationPage() {
     } finally {
       setSending(false);
     }
-    function setSending(v: boolean) {
-      // no-op placeholder replaced below
-    }
   };
 
   const copyFlow = (f: AutomationFlow) => {
