@@ -35,8 +35,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setIsAdmin(false);
         return;
       }
-      const { data } = await supabase
-        .from("user_roles" as any)
+      const { data } = await (supabase as any)
+        .from("user_roles")
         .select("role")
         .eq("user_id", uid)
         .eq("role", "admin")
