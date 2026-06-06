@@ -14,16 +14,242 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      app_settings: {
+        Row: {
+          chatbot_base_url: string | null
+          chatbot_token: string | null
+          chatbot_webhook: string | null
+          id: string
+          support_telegram: string | null
+          support_whatsapp: string | null
+          theme: Json
+          updated_at: string
+        }
+        Insert: {
+          chatbot_base_url?: string | null
+          chatbot_token?: string | null
+          chatbot_webhook?: string | null
+          id?: string
+          support_telegram?: string | null
+          support_whatsapp?: string | null
+          theme?: Json
+          updated_at?: string
+        }
+        Update: {
+          chatbot_base_url?: string | null
+          chatbot_token?: string | null
+          chatbot_webhook?: string | null
+          id?: string
+          support_telegram?: string | null
+          support_whatsapp?: string | null
+          theme?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      automation_flows: {
+        Row: {
+          category: string
+          content: Json
+          created_at: string
+          id: string
+          is_template: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          content?: Json
+          created_at?: string
+          id?: string
+          is_template?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content?: Json
+          created_at?: string
+          id?: string
+          is_template?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      clients: {
+        Row: {
+          contact: string | null
+          created_at: string
+          due_date: string | null
+          id: string
+          name: string
+          notes: string | null
+          plan_id: string | null
+          plan_type: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          contact?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          plan_id?: string | null
+          plan_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          contact?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          plan_id?: string | null
+          plan_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clients_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      iptv_access: {
+        Row: {
+          client_name: string | null
+          created_at: string
+          id: string
+          password: string
+          server_primary: string | null
+          server_secondary: string | null
+          support_telegram: string | null
+          support_whatsapp: string | null
+          token: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          client_name?: string | null
+          created_at?: string
+          id?: string
+          password: string
+          server_primary?: string | null
+          server_secondary?: string | null
+          support_telegram?: string | null
+          support_whatsapp?: string | null
+          token?: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          client_name?: string | null
+          created_at?: string
+          id?: string
+          password?: string
+          server_primary?: string | null
+          server_secondary?: string | null
+          support_telegram?: string | null
+          support_whatsapp?: string | null
+          token?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      plans: {
+        Row: {
+          accent_color: string
+          active: boolean
+          badge: string | null
+          created_at: string
+          description: string | null
+          duration_days: number
+          highlighted: boolean
+          id: string
+          name: string
+          period: string
+          price: number
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string
+          active?: boolean
+          badge?: string | null
+          created_at?: string
+          description?: string | null
+          duration_days?: number
+          highlighted?: boolean
+          id?: string
+          name: string
+          period?: string
+          price?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string
+          active?: boolean
+          badge?: string | null
+          created_at?: string
+          description?: string | null
+          duration_days?: number
+          highlighted?: boolean
+          id?: string
+          name?: string
+          period?: string
+          price?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +376,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
