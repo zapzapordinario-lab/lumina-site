@@ -56,9 +56,7 @@ export function FloatingNav() {
 
         <div className="flex items-center gap-2">
           <a
-            href="https://wa.me/5588998044487"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#teste-gratis"
             className="hidden rounded-lg border border-cyan/60 bg-cyan/10 px-4 py-2 text-xs font-bold uppercase tracking-wide text-cyan transition-all hover:glow-cyan hover:bg-cyan/20 sm:inline-block"
           >
             Teste Grátis
@@ -95,9 +93,7 @@ export function FloatingNav() {
               ))}
               <li>
                 <a
-                  href="https://wa.me/5588998044487"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#teste-gratis"
                   onClick={() => setOpen(false)}
                   className="mt-1 block rounded-lg bg-cyan px-3 py-2 text-center text-sm font-bold uppercase tracking-wide text-primary-foreground"
                 >
