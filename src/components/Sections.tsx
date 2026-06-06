@@ -22,7 +22,7 @@ import {
 const PRIMARY_WA = "https://wa.me/5588998044487";
 
 const quickAccess = [
-  { icon: Gift, label: "Teste Grátis", href: PRIMARY_WA, active: true, color: "var(--magenta)" },
+  { icon: Gift, label: "Teste Grátis", href: "#teste-gratis", active: true, color: "var(--magenta)" },
   { icon: Bot, label: "Atendente IA", href: PRIMARY_WA, color: "var(--cyan)" },
   { icon: Headphones, label: "Humano", sub: "09:00–18:00", href: PRIMARY_WA, color: "var(--cyan)" },
   { icon: RefreshCw, label: "Renovar Plano", href: "#planos", color: "var(--cyan)" },
