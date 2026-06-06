@@ -297,6 +297,8 @@ export function Sections() {
 
       <footer id="conta" className="border-t border-border px-6 py-10 text-center font-display text-xs uppercase tracking-widest text-muted-foreground">
         © 2026 DezPila · IPTV Premium · <span className="text-cyan">IA Support</span> · <span className="text-lime">WhatsApp</span>
+        {" · "}
+        <a href="/auth" className="transition-colors hover:text-magenta">Admin</a>
       </footer>
     </main>
   );

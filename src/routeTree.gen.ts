@@ -9,38 +9,177 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminThemeRouteImport } from './routes/admin.theme'
+import { Route as AdminPlansRouteImport } from './routes/admin.plans'
+import { Route as AdminIptvRouteImport } from './routes/admin.iptv'
+import { Route as AdminClientsRouteImport } from './routes/admin.clients'
+import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
+import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
+import { Route as AcessoTokenRouteImport } from './routes/acesso.$token'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminThemeRoute = AdminThemeRouteImport.update({
+  id: '/theme',
+  path: '/theme',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPlansRoute = AdminPlansRouteImport.update({
+  id: '/plans',
+  path: '/plans',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminIptvRoute = AdminIptvRouteImport.update({
+  id: '/iptv',
+  path: '/iptv',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsRoute = AdminClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCalendarRoute = AdminCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAutomationRoute = AdminAutomationRouteImport.update({
+  id: '/automation',
+  path: '/automation',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AcessoTokenRoute = AcessoTokenRouteImport.update({
+  id: '/acesso/$token',
+  path: '/acesso/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/acesso/$token': typeof AcessoTokenRoute
+  '/admin/automation': typeof AdminAutomationRoute
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/iptv': typeof AdminIptvRoute
+  '/admin/plans': typeof AdminPlansRoute
+  '/admin/theme': typeof AdminThemeRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/acesso/$token': typeof AcessoTokenRoute
+  '/admin/automation': typeof AdminAutomationRoute
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/iptv': typeof AdminIptvRoute
+  '/admin/plans': typeof AdminPlansRoute
+  '/admin/theme': typeof AdminThemeRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/acesso/$token': typeof AcessoTokenRoute
+  '/admin/automation': typeof AdminAutomationRoute
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/iptv': typeof AdminIptvRoute
+  '/admin/plans': typeof AdminPlansRoute
+  '/admin/theme': typeof AdminThemeRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/acesso/$token'
+    | '/admin/automation'
+    | '/admin/calendar'
+    | '/admin/clients'
+    | '/admin/iptv'
+    | '/admin/plans'
+    | '/admin/theme'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/acesso/$token'
+    | '/admin/automation'
+    | '/admin/calendar'
+    | '/admin/clients'
+    | '/admin/iptv'
+    | '/admin/plans'
+    | '/admin/theme'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/acesso/$token'
+    | '/admin/automation'
+    | '/admin/calendar'
+    | '/admin/clients'
+    | '/admin/iptv'
+    | '/admin/plans'
+    | '/admin/theme'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  AcessoTokenRoute: typeof AcessoTokenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +187,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/theme': {
+      id: '/admin/theme'
+      path: '/theme'
+      fullPath: '/admin/theme'
+      preLoaderRoute: typeof AdminThemeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/plans': {
+      id: '/admin/plans'
+      path: '/plans'
+      fullPath: '/admin/plans'
+      preLoaderRoute: typeof AdminPlansRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/iptv': {
+      id: '/admin/iptv'
+      path: '/iptv'
+      fullPath: '/admin/iptv'
+      preLoaderRoute: typeof AdminIptvRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients': {
+      id: '/admin/clients'
+      path: '/clients'
+      fullPath: '/admin/clients'
+      preLoaderRoute: typeof AdminClientsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/calendar': {
+      id: '/admin/calendar'
+      path: '/calendar'
+      fullPath: '/admin/calendar'
+      preLoaderRoute: typeof AdminCalendarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/automation': {
+      id: '/admin/automation'
+      path: '/automation'
+      fullPath: '/admin/automation'
+      preLoaderRoute: typeof AdminAutomationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/acesso/$token': {
+      id: '/acesso/$token'
+      path: '/acesso/$token'
+      fullPath: '/acesso/$token'
+      preLoaderRoute: typeof AcessoTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAutomationRoute: typeof AdminAutomationRoute
+  AdminCalendarRoute: typeof AdminCalendarRoute
+  AdminClientsRoute: typeof AdminClientsRoute
+  AdminIptvRoute: typeof AdminIptvRoute
+  AdminPlansRoute: typeof AdminPlansRoute
+  AdminThemeRoute: typeof AdminThemeRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAutomationRoute: AdminAutomationRoute,
+  AdminCalendarRoute: AdminCalendarRoute,
+  AdminClientsRoute: AdminClientsRoute,
+  AdminIptvRoute: AdminIptvRoute,
+  AdminPlansRoute: AdminPlansRoute,
+  AdminThemeRoute: AdminThemeRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
+  AcessoTokenRoute: AcessoTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
