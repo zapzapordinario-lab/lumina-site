@@ -11,7 +11,7 @@ import {
   Send,
   Loader2,
   FileJson,
-  Plus,
+  
   Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
