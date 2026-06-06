@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminThemeRouteImport } from './routes/admin.theme'
 import { Route as AdminPlansRouteImport } from './routes/admin.plans'
+import { Route as AdminIptvRouteImport } from './routes/admin.iptv'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
 import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
@@ -49,6 +50,11 @@ const AdminPlansRoute = AdminPlansRouteImport.update({
   path: '/plans',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminIptvRoute = AdminIptvRouteImport.update({
+  id: '/iptv',
+  path: '/iptv',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminClientsRoute = AdminClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin': typeof AdminIndexRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/iptv'
     | '/admin/plans'
     | '/admin/theme'
     | '/admin/'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/iptv'
     | '/admin/plans'
     | '/admin/theme'
     | '/admin'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/iptv'
     | '/admin/plans'
     | '/admin/theme'
     | '/admin/'
@@ -183,6 +195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPlansRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/iptv': {
+      id: '/admin/iptv'
+      path: '/iptv'
+      fullPath: '/admin/iptv'
+      preLoaderRoute: typeof AdminIptvRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/clients': {
       id: '/admin/clients'
       path: '/clients'
@@ -211,6 +230,7 @@ interface AdminRouteChildren {
   AdminAutomationRoute: typeof AdminAutomationRoute
   AdminCalendarRoute: typeof AdminCalendarRoute
   AdminClientsRoute: typeof AdminClientsRoute
+  AdminIptvRoute: typeof AdminIptvRoute
   AdminPlansRoute: typeof AdminPlansRoute
   AdminThemeRoute: typeof AdminThemeRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -220,6 +240,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAutomationRoute: AdminAutomationRoute,
   AdminCalendarRoute: AdminCalendarRoute,
   AdminClientsRoute: AdminClientsRoute,
+  AdminIptvRoute: AdminIptvRoute,
   AdminPlansRoute: AdminPlansRoute,
   AdminThemeRoute: AdminThemeRoute,
   AdminIndexRoute: AdminIndexRoute,
