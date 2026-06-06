@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminPlansRouteImport } from './routes/admin.plans'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
+import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
 import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
 
 const AuthRoute = AuthRouteImport.update({
@@ -47,6 +48,11 @@ const AdminClientsRoute = AdminClientsRouteImport.update({
   path: '/clients',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminCalendarRoute = AdminCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAutomationRoute = AdminAutomationRouteImport.update({
   id: '/automation',
   path: '/automation',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/admin/automation': typeof AdminAutomationRoute
+  '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/': typeof AdminIndexRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/admin/automation': typeof AdminAutomationRoute
+  '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin': typeof AdminIndexRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/admin/automation': typeof AdminAutomationRoute
+  '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/': typeof AdminIndexRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/admin/automation'
+    | '/admin/calendar'
     | '/admin/clients'
     | '/admin/plans'
     | '/admin/'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/admin/automation'
+    | '/admin/calendar'
     | '/admin/clients'
     | '/admin/plans'
     | '/admin'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/admin/automation'
+    | '/admin/calendar'
     | '/admin/clients'
     | '/admin/plans'
     | '/admin/'
@@ -159,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminClientsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/calendar': {
+      id: '/admin/calendar'
+      path: '/calendar'
+      fullPath: '/admin/calendar'
+      preLoaderRoute: typeof AdminCalendarRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/automation': {
       id: '/admin/automation'
       path: '/automation'
@@ -171,6 +190,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAutomationRoute: typeof AdminAutomationRoute
+  AdminCalendarRoute: typeof AdminCalendarRoute
   AdminClientsRoute: typeof AdminClientsRoute
   AdminPlansRoute: typeof AdminPlansRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -178,6 +198,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAutomationRoute: AdminAutomationRoute,
+  AdminCalendarRoute: AdminCalendarRoute,
   AdminClientsRoute: AdminClientsRoute,
   AdminPlansRoute: AdminPlansRoute,
   AdminIndexRoute: AdminIndexRoute,
@@ -193,3 +214,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
