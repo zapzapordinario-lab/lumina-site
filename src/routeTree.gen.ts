@@ -13,6 +13,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminThemeRouteImport } from './routes/admin.theme'
 import { Route as AdminPlansRouteImport } from './routes/admin.plans'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
@@ -36,6 +37,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminThemeRoute = AdminThemeRouteImport.update({
+  id: '/theme',
+  path: '/theme',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminPlansRoute = AdminPlansRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/theme': typeof AdminThemeRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/admin/calendar'
     | '/admin/clients'
     | '/admin/plans'
+    | '/admin/theme'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/admin/calendar'
     | '/admin/clients'
     | '/admin/plans'
+    | '/admin/theme'
     | '/admin'
   id:
     | '__root__'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/admin/calendar'
     | '/admin/clients'
     | '/admin/plans'
+    | '/admin/theme'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +169,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/theme': {
+      id: '/admin/theme'
+      path: '/theme'
+      fullPath: '/admin/theme'
+      preLoaderRoute: typeof AdminThemeRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/plans': {
       id: '/admin/plans'
       path: '/plans'
@@ -193,6 +212,7 @@ interface AdminRouteChildren {
   AdminCalendarRoute: typeof AdminCalendarRoute
   AdminClientsRoute: typeof AdminClientsRoute
   AdminPlansRoute: typeof AdminPlansRoute
+  AdminThemeRoute: typeof AdminThemeRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -201,6 +221,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCalendarRoute: AdminCalendarRoute,
   AdminClientsRoute: AdminClientsRoute,
   AdminPlansRoute: AdminPlansRoute,
+  AdminThemeRoute: AdminThemeRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -214,3 +235,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
