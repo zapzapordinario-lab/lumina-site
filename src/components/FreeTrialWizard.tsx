@@ -47,11 +47,18 @@ export function FreeTrialWizard() {
           <p className="mb-3 font-display text-xs font-bold uppercase tracking-[0.35em] text-cyan/80">
             // Teste Grátis
           </p>
-          <h2 className="text-4xl font-black md:text-5xl">
-            Ative em <span className="text-glow-magenta">3 passos.</span>
+          <h2 className="text-5xl font-black leading-[1.02] md:text-7xl">
+            <span className="text-foreground">Teste é</span>{" "}
+            <span className="text-glow-magenta">grátis.</span>
           </h2>
-          <p className="mt-4 text-sm uppercase tracking-wider text-muted-foreground">
-            1 hora completa · Sem cartão · Sem compromisso
+          <p className="mt-3 font-display text-2xl font-black uppercase tracking-tight text-muted-foreground md:text-3xl">
+            Sem cartão.
+          </p>
+          <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground">
+            1 hora completa para testar sem compromisso. Se gostar, escolha seu plano e ative em 5 minutos.
+          </p>
+          <p className="mt-6 font-display text-sm font-bold uppercase tracking-wider text-cyan">
+            Ative em <span className="text-glow-magenta">3 passos.</span>
           </p>
         </Reveal>
 
