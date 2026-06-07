@@ -82,7 +82,7 @@ function AdminLayout() {
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-border bg-card/40 backdrop-blur lg:flex">
         <div className="flex items-center gap-2 border-b border-border px-5 py-5 font-display text-lg font-bold tracking-wider">
           <Tv className="h-5 w-5 text-magenta" />
-          DEZ<span className="text-glow-magenta">PILA</span>
+          QUINZE<span className="text-glow-magenta">CONTO</span>
         </div>
         <nav className="flex-1 space-y-1 p-3">
           {nav.map((n) => {
