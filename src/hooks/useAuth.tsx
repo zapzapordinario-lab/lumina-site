@@ -35,13 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setIsAdmin(false);
         return;
       }
-      // Ensure the user has a role row; first user becomes admin automatically.
       try {
-        const { data: assigned } = await (supabase as any).rpc("ensure_user_role");
-        if (assigned === "admin") {
-          setIsAdmin(true);
-          return;
-        }
         const { data } = await (supabase as any)
           .from("user_roles")
           .select("role")
