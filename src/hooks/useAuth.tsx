@@ -36,24 +36,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
       // Ensure the user has a role row; first user becomes admin automatically.
-      const { data: assigned } = await (supabase as any).rpc("ensure_user_role");
-      if (assigned === "admin") {
-        setIsAdmin(true);
-        return;
+      try {
+        const { data: assigned } = await (supabase as any).rpc("ensure_user_role");
+        if (assigned === "admin") {
+          setIsAdmin(true);
+          return;
+        }
+        const { data } = await (supabase as any)
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", uid)
+          .eq("role", "admin")
+          .maybeSingle();
+        setIsAdmin(!!data);
+      } catch {
+        setIsAdmin(false);
       }
-      const { data } = await (supabase as any)
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", uid)
-        .eq("role", "admin")
-        .maybeSingle();
-      setIsAdmin(!!data);
     };
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
       setSession(s);
+      setLoading(true);
       // defer role lookup to avoid deadlocks inside the callback
-      setTimeout(() => checkRole(s?.user?.id), 0);
+      setTimeout(() => {
+        checkRole(s?.user?.id).finally(() => setLoading(false));
+      }, 0);
     });
 
     supabase.auth.getSession().then(({ data }) => {
