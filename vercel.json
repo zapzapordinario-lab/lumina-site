@@ -1,21 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".output/public",
-  "framework": null,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/" }
-  ],
-  "routes": [
-    { "src": "/admin", "dest": "/" },
-    { "src": "/admin/automation", "dest": "/" },
-    { "src": "/admin/calendar", "dest": "/" },
-    { "src": "/admin/clients", "dest": "/" },
-    { "src": "/admin/iptv", "dest": "/" },
-    { "src": "/admin/plans", "dest": "/" },
-    { "src": "/admin/theme", "dest": "/" },
-    { "src": "/auth", "dest": "/" },
-    { "src": "/acesso/(.*)", "dest": "/" }
+    { "source": "/admin", "destination": "/" },
+    { "source": "/admin/:path*", "destination": "/" },
+    { "source": "/auth", "destination": "/" },
+    { "source": "/acesso/:token*", "destination": "/" }
   ]
 }
