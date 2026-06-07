@@ -38,7 +38,7 @@ export function FloatingNav() {
       >
         <a href="#home" className="flex items-center gap-2 font-display text-lg font-bold tracking-wider">
           <Tv className="h-5 w-5 text-magenta" />
-          <span>DEZ<span className="text-glow-magenta">PILA</span></span>
+          <span>QUINZE<span className="text-glow-magenta">CONTO</span></span>
         </a>
 
         <ul className="hidden items-center gap-6 lg:flex">
