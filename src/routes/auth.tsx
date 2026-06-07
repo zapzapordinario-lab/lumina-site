@@ -67,7 +67,7 @@ function AuthPage() {
         <div className="mb-6 flex items-center justify-center gap-2 font-display text-2xl font-bold tracking-wider">
           <Tv className="h-6 w-6 text-magenta" />
           <span>
-            DEZ<span className="text-glow-magenta">PILA</span>
+            QUINZE<span className="text-glow-magenta">CONTO</span>
           </span>
         </div>
         <p className="mb-6 text-center font-display text-xs font-bold uppercase tracking-[0.3em] text-cyan/80">
