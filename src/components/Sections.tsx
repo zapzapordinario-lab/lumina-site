@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Reveal, Counter } from "./Reveal";
 import { FreeTrialWizard } from "./FreeTrialWizard";
+import { getPublicPlans } from "@/lib/plans.functions";
 import {
   Tv,
   Globe,
@@ -48,7 +51,7 @@ const features = [
   { icon: Lock, title: "Pagamento Seguro", desc: "PIX com liberação instantânea. Sem dados de cartão, sem assinatura recorrente. Cancele quando quiser.", color: "var(--lime)" },
 ];
 
-const plans = [
+const fallbackPlans = [
   { title: "1 Mês · 1 Tela", price: "12,49", info: "30 dias · 1 dispositivo", badge: "Popular" },
   { title: "1 Mês · 2 Telas", price: "22,49", info: "30 dias · 2 dispositivos" },
   { title: "2 Meses · 1 Tela", price: "22,00", info: "60 dias · 1 dispositivo" },
@@ -78,6 +81,24 @@ function Eyebrow({ children }: { children: string }) {
 }
 
 export function Sections() {
+  const fetchPlans = useServerFn(getPublicPlans);
+  const { data: plansData } = useQuery({
+    queryKey: ["public-plans"],
+    queryFn: () => fetchPlans(),
+  });
+
+  const plans =
+    plansData?.plans && plansData.plans.length > 0
+      ? plansData.plans.map((p) => ({
+          title: p.name,
+          price: Number(p.price).toFixed(2).replace(".", ","),
+          info: p.description ?? `${p.duration_days} dias`,
+          badge: p.badge ?? undefined,
+          featured: p.highlighted,
+          accent: p.accent_color,
+        }))
+      : fallbackPlans;
+
   return (
     <main className="relative z-10">
       {/* HERO */}
@@ -184,7 +205,9 @@ export function Sections() {
           </Reveal>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {plans.map((p, i) => {
-              const accent = p.featured ? "var(--lime)" : "var(--cyan)";
+              const accent =
+                ("accent" in p && p.accent) ||
+                (p.featured ? "var(--lime)" : "var(--cyan)");
               return (
                 <Reveal key={p.title} delay={(i % 4) * 0.08}>
                   <motion.div
