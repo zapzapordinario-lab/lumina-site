@@ -205,7 +205,9 @@ export function Sections() {
           </Reveal>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {plans.map((p, i) => {
-              const accent = p.featured ? "var(--lime)" : "var(--cyan)";
+              const accent =
+                ("accent" in p && p.accent) ||
+                (p.featured ? "var(--lime)" : "var(--cyan)");
               return (
                 <Reveal key={p.title} delay={(i % 4) * 0.08}>
                   <motion.div
