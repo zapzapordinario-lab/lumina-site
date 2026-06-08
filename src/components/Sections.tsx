@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Reveal, Counter } from "./Reveal";
 import { FreeTrialWizard } from "./FreeTrialWizard";
+import { getPublicPlans } from "@/lib/plans.functions";
 import {
   Tv,
   Globe,
