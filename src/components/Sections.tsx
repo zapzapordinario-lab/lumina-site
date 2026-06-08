@@ -51,7 +51,7 @@ const features = [
   { icon: Lock, title: "Pagamento Seguro", desc: "PIX com liberação instantânea. Sem dados de cartão, sem assinatura recorrente. Cancele quando quiser.", color: "var(--lime)" },
 ];
 
-const plans = [
+const fallbackPlans = [
   { title: "1 Mês · 1 Tela", price: "12,49", info: "30 dias · 1 dispositivo", badge: "Popular" },
   { title: "1 Mês · 2 Telas", price: "22,49", info: "30 dias · 2 dispositivos" },
   { title: "2 Meses · 1 Tela", price: "22,00", info: "60 dias · 1 dispositivo" },
@@ -81,6 +81,24 @@ function Eyebrow({ children }: { children: string }) {
 }
 
 export function Sections() {
+  const fetchPlans = useServerFn(getPublicPlans);
+  const { data: plansData } = useQuery({
+    queryKey: ["public-plans"],
+    queryFn: () => fetchPlans(),
+  });
+
+  const plans =
+    plansData?.plans && plansData.plans.length > 0
+      ? plansData.plans.map((p) => ({
+          title: p.name,
+          price: Number(p.price).toFixed(2).replace(".", ","),
+          info: p.description ?? `${p.duration_days} dias`,
+          badge: p.badge ?? undefined,
+          featured: p.highlighted,
+          accent: p.accent_color,
+        }))
+      : fallbackPlans;
+
   return (
     <main className="relative z-10">
       {/* HERO */}
