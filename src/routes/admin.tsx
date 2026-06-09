@@ -19,6 +19,8 @@ import {
   Tv,
   Loader2,
   ShieldAlert,
+  DollarSign,
+  Store,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -29,6 +31,8 @@ export const Route = createFileRoute("/admin")({
 
 const nav = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { to: "/admin/finance", label: "Financeiro", icon: DollarSign },
+  { to: "/admin/resellers", label: "Revendedores", icon: Store },
   { to: "/admin/plans", label: "Planos", icon: Package },
   { to: "/admin/clients", label: "Usuários", icon: Users },
   { to: "/admin/automation", label: "Automação", icon: Bot },
@@ -60,18 +64,26 @@ function AdminLayout() {
         <ShieldAlert className="h-12 w-12 text-magenta" />
         <h1 className="font-display text-2xl font-bold">Acesso restrito</h1>
         <p className="max-w-sm text-sm text-muted-foreground">
-          Sua conta não tem permissão de administrador. Apenas o proprietário do
-          site pode acessar este painel.
+          Sua conta não tem permissão de administrador. Se você é revendedor,
+          acesse o seu painel de revenda.
         </p>
-        <button
-          onClick={async () => {
-            await signOut();
-            navigate({ to: "/auth" });
-          }}
-          className="rounded-lg border border-border px-4 py-2 text-sm font-bold uppercase tracking-wide text-muted-foreground hover:text-foreground"
-        >
-          Sair
-        </button>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <button
+            onClick={() => navigate({ to: "/revenda" })}
+            className="rounded-lg border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-bold uppercase tracking-wide text-cyan hover:bg-cyan/20"
+          >
+            Painel de revenda
+          </button>
+          <button
+            onClick={async () => {
+              await signOut();
+              navigate({ to: "/auth" });
+            }}
+            className="rounded-lg border border-border px-4 py-2 text-sm font-bold uppercase tracking-wide text-muted-foreground hover:text-foreground"
+          >
+            Sair
+          </button>
+        </div>
       </div>
     );
   }

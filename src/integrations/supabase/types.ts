@@ -87,6 +87,7 @@ export type Database = {
           notes: string | null
           plan_id: string | null
           plan_type: string
+          reseller_id: string | null
           status: string
           updated_at: string
         }
@@ -99,6 +100,7 @@ export type Database = {
           notes?: string | null
           plan_id?: string | null
           plan_type?: string
+          reseller_id?: string | null
           status?: string
           updated_at?: string
         }
@@ -111,6 +113,7 @@ export type Database = {
           notes?: string | null
           plan_id?: string | null
           plan_type?: string
+          reseller_id?: string | null
           status?: string
           updated_at?: string
         }
@@ -120,6 +123,54 @@ export type Database = {
             columns: ["plan_id"]
             isOneToOne: false
             referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clients_reseller_id_fkey"
+            columns: ["reseller_id"]
+            isOneToOne: false
+            referencedRelation: "resellers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      investments: {
+        Row: {
+          amount: number
+          created_at: string
+          credits: number | null
+          id: string
+          invested_at: string
+          notes: string | null
+          panel_name: string | null
+          reseller_id: string | null
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          credits?: number | null
+          id?: string
+          invested_at?: string
+          notes?: string | null
+          panel_name?: string | null
+          reseller_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          credits?: number | null
+          id?: string
+          invested_at?: string
+          notes?: string | null
+          panel_name?: string | null
+          reseller_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investments_reseller_id_fkey"
+            columns: ["reseller_id"]
+            isOneToOne: false
+            referencedRelation: "resellers"
             referencedColumns: ["id"]
           },
         ]
@@ -166,6 +217,70 @@ export type Database = {
         }
         Relationships: []
       }
+      payments: {
+        Row: {
+          amount: number
+          client_id: string | null
+          created_at: string
+          description: string | null
+          id: string
+          method: string
+          paid_at: string
+          plan_id: string | null
+          reference: string | null
+          reseller_id: string | null
+          status: string
+        }
+        Insert: {
+          amount?: number
+          client_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          method?: string
+          paid_at?: string
+          plan_id?: string | null
+          reference?: string | null
+          reseller_id?: string | null
+          status?: string
+        }
+        Update: {
+          amount?: number
+          client_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          method?: string
+          paid_at?: string
+          plan_id?: string | null
+          reference?: string | null
+          reseller_id?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_reseller_id_fkey"
+            columns: ["reseller_id"]
+            isOneToOne: false
+            referencedRelation: "resellers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       plans: {
         Row: {
           accent_color: string
@@ -211,6 +326,92 @@ export type Database = {
           price?: number
           sort_order?: number
           updated_at?: string
+        }
+        Relationships: []
+      }
+      reseller_transactions: {
+        Row: {
+          amount: number
+          balance_after: number | null
+          created_at: string
+          description: string | null
+          id: string
+          reference: string | null
+          reseller_id: string
+          status: string
+          type: string
+        }
+        Insert: {
+          amount?: number
+          balance_after?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference?: string | null
+          reseller_id: string
+          status?: string
+          type?: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference?: string | null
+          reseller_id?: string
+          status?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reseller_transactions_reseller_id_fkey"
+            columns: ["reseller_id"]
+            isOneToOne: false
+            referencedRelation: "resellers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resellers: {
+        Row: {
+          balance: number
+          contact: string | null
+          created_at: string
+          credit_cost: number
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          balance?: number
+          contact?: string | null
+          created_at?: string
+          credit_cost?: number
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          balance?: number
+          contact?: string | null
+          created_at?: string
+          credit_cost?: number
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }

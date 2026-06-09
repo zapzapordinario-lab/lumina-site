@@ -30,6 +30,57 @@ export interface Client {
   due_date: string | null;
   status: string; // ativo | inativo | teste
   notes: string | null;
+  reseller_id: string | null;
+  created_at: string;
+}
+
+export interface Reseller {
+  id: string;
+  user_id: string | null;
+  name: string;
+  email: string | null;
+  contact: string | null;
+  balance: number;
+  credit_cost: number;
+  status: string; // ativo | inativo
+  notes: string | null;
+  created_at: string;
+}
+
+export interface ResellerTransaction {
+  id: string;
+  reseller_id: string;
+  type: string; // credit_purchase | debit | adjustment
+  amount: number;
+  balance_after: number | null;
+  description: string | null;
+  reference: string | null;
+  status: string;
+  created_at: string;
+}
+
+export interface Payment {
+  id: string;
+  client_id: string | null;
+  plan_id: string | null;
+  reseller_id: string | null;
+  amount: number;
+  method: string; // pix | manual
+  status: string; // paid | pending
+  reference: string | null;
+  description: string | null;
+  paid_at: string;
+  created_at: string;
+}
+
+export interface Investment {
+  id: string;
+  reseller_id: string | null;
+  panel_name: string | null;
+  amount: number;
+  credits: number | null;
+  notes: string | null;
+  invested_at: string;
   created_at: string;
 }
 
@@ -109,3 +160,25 @@ export function waLink(phone: string | null | undefined, text: string): string {
   const num = (phone ?? "").replace(/\D/g, "");
   return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
 }
+
+// ---- Finance helpers ----
+export const MONTHS = [
+  "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+  "Jul", "Ago", "Set", "Out", "Nov", "Dez",
+];
+
+export function brl(value: number | null | undefined): string {
+  return (value ?? 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
+
+export function monthIndex(iso: string): number {
+  return new Date(iso).getMonth();
+}
+
+export function yearOf(iso: string): number {
+  return new Date(iso).getFullYear();
+}
+

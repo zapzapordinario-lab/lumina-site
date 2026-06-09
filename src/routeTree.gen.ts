@@ -9,18 +9,27 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RevendaRouteImport } from './routes/revenda'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminThemeRouteImport } from './routes/admin.theme'
+import { Route as AdminResellersRouteImport } from './routes/admin.resellers'
 import { Route as AdminPlansRouteImport } from './routes/admin.plans'
 import { Route as AdminIptvRouteImport } from './routes/admin.iptv'
+import { Route as AdminFinanceRouteImport } from './routes/admin.finance'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
 import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
 import { Route as AcessoTokenRouteImport } from './routes/acesso.$token'
+import { Route as ApiPublicMercadopagoRouteImport } from './routes/api.public.mercadopago'
 
+const RevendaRoute = RevendaRouteImport.update({
+  id: '/revenda',
+  path: '/revenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -46,6 +55,11 @@ const AdminThemeRoute = AdminThemeRouteImport.update({
   path: '/theme',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminResellersRoute = AdminResellersRouteImport.update({
+  id: '/resellers',
+  path: '/resellers',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPlansRoute = AdminPlansRouteImport.update({
   id: '/plans',
   path: '/plans',
@@ -54,6 +68,11 @@ const AdminPlansRoute = AdminPlansRouteImport.update({
 const AdminIptvRoute = AdminIptvRouteImport.update({
   id: '/iptv',
   path: '/iptv',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFinanceRoute = AdminFinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminClientsRoute = AdminClientsRouteImport.update({
@@ -76,45 +95,62 @@ const AcessoTokenRoute = AcessoTokenRouteImport.update({
   path: '/acesso/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMercadopagoRoute = ApiPublicMercadopagoRouteImport.update({
+  id: '/api/public/mercadopago',
+  path: '/api/public/mercadopago',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/mercadopago': typeof ApiPublicMercadopagoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin': typeof AdminIndexRoute
+  '/api/public/mercadopago': typeof ApiPublicMercadopagoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/mercadopago': typeof ApiPublicMercadopagoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -122,50 +158,71 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
+    | '/admin/resellers'
     | '/admin/theme'
     | '/admin/'
+    | '/api/public/mercadopago'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
+    | '/admin/resellers'
     | '/admin/theme'
     | '/admin'
+    | '/api/public/mercadopago'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/auth'
+    | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
+    | '/admin/resellers'
     | '/admin/theme'
     | '/admin/'
+    | '/api/public/mercadopago'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
+  RevendaRoute: typeof RevendaRoute
   AcessoTokenRoute: typeof AcessoTokenRoute
+  ApiPublicMercadopagoRoute: typeof ApiPublicMercadopagoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/revenda': {
+      id: '/revenda'
+      path: '/revenda'
+      fullPath: '/revenda'
+      preLoaderRoute: typeof RevendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -201,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminThemeRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/resellers': {
+      id: '/admin/resellers'
+      path: '/resellers'
+      fullPath: '/admin/resellers'
+      preLoaderRoute: typeof AdminResellersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/plans': {
       id: '/admin/plans'
       path: '/plans'
@@ -213,6 +277,13 @@ declare module '@tanstack/react-router' {
       path: '/iptv'
       fullPath: '/admin/iptv'
       preLoaderRoute: typeof AdminIptvRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/finance': {
+      id: '/admin/finance'
+      path: '/finance'
+      fullPath: '/admin/finance'
+      preLoaderRoute: typeof AdminFinanceRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/clients': {
@@ -243,6 +314,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcessoTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/mercadopago': {
+      id: '/api/public/mercadopago'
+      path: '/api/public/mercadopago'
+      fullPath: '/api/public/mercadopago'
+      preLoaderRoute: typeof ApiPublicMercadopagoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -250,8 +328,10 @@ interface AdminRouteChildren {
   AdminAutomationRoute: typeof AdminAutomationRoute
   AdminCalendarRoute: typeof AdminCalendarRoute
   AdminClientsRoute: typeof AdminClientsRoute
+  AdminFinanceRoute: typeof AdminFinanceRoute
   AdminIptvRoute: typeof AdminIptvRoute
   AdminPlansRoute: typeof AdminPlansRoute
+  AdminResellersRoute: typeof AdminResellersRoute
   AdminThemeRoute: typeof AdminThemeRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -260,8 +340,10 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAutomationRoute: AdminAutomationRoute,
   AdminCalendarRoute: AdminCalendarRoute,
   AdminClientsRoute: AdminClientsRoute,
+  AdminFinanceRoute: AdminFinanceRoute,
   AdminIptvRoute: AdminIptvRoute,
   AdminPlansRoute: AdminPlansRoute,
+  AdminResellersRoute: AdminResellersRoute,
   AdminThemeRoute: AdminThemeRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
@@ -272,7 +354,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
+  RevendaRoute: RevendaRoute,
   AcessoTokenRoute: AcessoTokenRoute,
+  ApiPublicMercadopagoRoute: ApiPublicMercadopagoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
