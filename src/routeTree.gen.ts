@@ -22,6 +22,7 @@ import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
 import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
 import { Route as AcessoTokenRouteImport } from './routes/acesso.$token'
+import { Route as ApiPublicMercadopagoRouteImport } from './routes/api.public.mercadopago'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -88,6 +89,11 @@ const AcessoTokenRoute = AcessoTokenRouteImport.update({
   path: '/acesso/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMercadopagoRoute = ApiPublicMercadopagoRouteImport.update({
+  id: '/api/public/mercadopago',
+  path: '/api/public/mercadopago',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/mercadopago': typeof ApiPublicMercadopagoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin': typeof AdminIndexRoute
+  '/api/public/mercadopago': typeof ApiPublicMercadopagoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/mercadopago': typeof ApiPublicMercadopagoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
     | '/admin/resellers'
     | '/admin/theme'
     | '/admin/'
+    | '/api/public/mercadopago'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/admin/resellers'
     | '/admin/theme'
     | '/admin'
+    | '/api/public/mercadopago'
   id:
     | '__root__'
     | '/'
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/admin/resellers'
     | '/admin/theme'
     | '/admin/'
+    | '/api/public/mercadopago'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -186,6 +198,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
   AcessoTokenRoute: typeof AcessoTokenRoute
+  ApiPublicMercadopagoRoute: typeof ApiPublicMercadopagoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -281,6 +294,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcessoTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/mercadopago': {
+      id: '/api/public/mercadopago'
+      path: '/api/public/mercadopago'
+      fullPath: '/api/public/mercadopago'
+      preLoaderRoute: typeof ApiPublicMercadopagoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -315,7 +335,18 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
   AcessoTokenRoute: AcessoTokenRoute,
+  ApiPublicMercadopagoRoute: ApiPublicMercadopagoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
