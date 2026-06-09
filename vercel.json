@@ -6,12 +6,15 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/auth", "destination": "/index.html" },
     { "source": "/admin", "destination": "/index.html" },
+    { "source": "/admin/finance", "destination": "/index.html" },
+    { "source": "/admin/resellers", "destination": "/index.html" },
     { "source": "/admin/plans", "destination": "/index.html" },
     { "source": "/admin/clients", "destination": "/index.html" },
     { "source": "/admin/automation", "destination": "/index.html" },
     { "source": "/admin/calendar", "destination": "/index.html" },
     { "source": "/admin/theme", "destination": "/index.html" },
     { "source": "/admin/iptv", "destination": "/index.html" },
+    { "source": "/revenda", "destination": "/index.html" },
     { "source": "/acesso/:token", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
