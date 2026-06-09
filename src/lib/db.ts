@@ -160,3 +160,25 @@ export function waLink(phone: string | null | undefined, text: string): string {
   const num = (phone ?? "").replace(/\D/g, "");
   return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
 }
+
+// ---- Finance helpers ----
+export const MONTHS = [
+  "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+  "Jul", "Ago", "Set", "Out", "Nov", "Dez",
+];
+
+export function brl(value: number | null | undefined): string {
+  return (value ?? 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
+
+export function monthIndex(iso: string): number {
+  return new Date(iso).getMonth();
+}
+
+export function yearOf(iso: string): number {
+  return new Date(iso).getFullYear();
+}
+
