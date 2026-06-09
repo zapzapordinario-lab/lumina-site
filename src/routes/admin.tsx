@@ -31,6 +31,8 @@ export const Route = createFileRoute("/admin")({
 
 const nav = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { to: "/admin/finance", label: "Financeiro", icon: DollarSign },
+  { to: "/admin/resellers", label: "Revendedores", icon: Store },
   { to: "/admin/plans", label: "Planos", icon: Package },
   { to: "/admin/clients", label: "Usuários", icon: Users },
   { to: "/admin/automation", label: "Automação", icon: Bot },
