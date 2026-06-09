@@ -14,6 +14,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminThemeRouteImport } from './routes/admin.theme'
+import { Route as AdminResellersRouteImport } from './routes/admin.resellers'
 import { Route as AdminPlansRouteImport } from './routes/admin.plans'
 import { Route as AdminIptvRouteImport } from './routes/admin.iptv'
 import { Route as AdminFinanceRouteImport } from './routes/admin.finance'
@@ -45,6 +46,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminThemeRoute = AdminThemeRouteImport.update({
   id: '/theme',
   path: '/theme',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminResellersRoute = AdminResellersRouteImport.update({
+  id: '/resellers',
+  path: '/resellers',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminPlansRoute = AdminPlansRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
+  '/admin/resellers': typeof AdminResellersRoute
   '/admin/theme': typeof AdminThemeRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
+    | '/admin/resellers'
     | '/admin/theme'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
+    | '/admin/resellers'
     | '/admin/theme'
     | '/admin'
   id:
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
+    | '/admin/resellers'
     | '/admin/theme'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -211,6 +223,13 @@ declare module '@tanstack/react-router' {
       path: '/theme'
       fullPath: '/admin/theme'
       preLoaderRoute: typeof AdminThemeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/resellers': {
+      id: '/admin/resellers'
+      path: '/resellers'
+      fullPath: '/admin/resellers'
+      preLoaderRoute: typeof AdminResellersRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/plans': {
@@ -272,6 +291,7 @@ interface AdminRouteChildren {
   AdminFinanceRoute: typeof AdminFinanceRoute
   AdminIptvRoute: typeof AdminIptvRoute
   AdminPlansRoute: typeof AdminPlansRoute
+  AdminResellersRoute: typeof AdminResellersRoute
   AdminThemeRoute: typeof AdminThemeRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -283,6 +303,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminFinanceRoute: AdminFinanceRoute,
   AdminIptvRoute: AdminIptvRoute,
   AdminPlansRoute: AdminPlansRoute,
+  AdminResellersRoute: AdminResellersRoute,
   AdminThemeRoute: AdminThemeRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
@@ -298,3 +319,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
