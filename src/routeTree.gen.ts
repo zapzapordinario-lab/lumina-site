@@ -16,6 +16,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminThemeRouteImport } from './routes/admin.theme'
 import { Route as AdminPlansRouteImport } from './routes/admin.plans'
 import { Route as AdminIptvRouteImport } from './routes/admin.iptv'
+import { Route as AdminFinanceRouteImport } from './routes/admin.finance'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
 import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
@@ -56,6 +57,11 @@ const AdminIptvRoute = AdminIptvRouteImport.update({
   path: '/iptv',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminFinanceRoute = AdminFinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminClientsRoute = AdminClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/theme': typeof AdminThemeRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/theme': typeof AdminThemeRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
+  '/admin/finance': typeof AdminFinanceRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/theme': typeof AdminThemeRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
     | '/admin/theme'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
     | '/admin/theme'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/admin/automation'
     | '/admin/calendar'
     | '/admin/clients'
+    | '/admin/finance'
     | '/admin/iptv'
     | '/admin/plans'
     | '/admin/theme'
@@ -215,6 +227,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIptvRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/finance': {
+      id: '/admin/finance'
+      path: '/finance'
+      fullPath: '/admin/finance'
+      preLoaderRoute: typeof AdminFinanceRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/clients': {
       id: '/admin/clients'
       path: '/clients'
@@ -250,6 +269,7 @@ interface AdminRouteChildren {
   AdminAutomationRoute: typeof AdminAutomationRoute
   AdminCalendarRoute: typeof AdminCalendarRoute
   AdminClientsRoute: typeof AdminClientsRoute
+  AdminFinanceRoute: typeof AdminFinanceRoute
   AdminIptvRoute: typeof AdminIptvRoute
   AdminPlansRoute: typeof AdminPlansRoute
   AdminThemeRoute: typeof AdminThemeRoute
@@ -260,6 +280,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAutomationRoute: AdminAutomationRoute,
   AdminCalendarRoute: AdminCalendarRoute,
   AdminClientsRoute: AdminClientsRoute,
+  AdminFinanceRoute: AdminFinanceRoute,
   AdminIptvRoute: AdminIptvRoute,
   AdminPlansRoute: AdminPlansRoute,
   AdminThemeRoute: AdminThemeRoute,
@@ -277,3 +298,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
