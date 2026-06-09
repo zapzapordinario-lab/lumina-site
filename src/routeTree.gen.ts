@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RevendaRouteImport } from './routes/revenda'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,6 +25,11 @@ import { Route as AdminAutomationRouteImport } from './routes/admin.automation'
 import { Route as AcessoTokenRouteImport } from './routes/acesso.$token'
 import { Route as ApiPublicMercadopagoRouteImport } from './routes/api.public.mercadopago'
 
+const RevendaRoute = RevendaRouteImport.update({
+  id: '/revenda',
+  path: '/revenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
   '/admin/calendar': typeof AdminCalendarRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
     | '/admin/calendar'
@@ -197,12 +209,20 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
+  RevendaRoute: typeof RevendaRoute
   AcessoTokenRoute: typeof AcessoTokenRoute
   ApiPublicMercadopagoRoute: typeof ApiPublicMercadopagoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/revenda': {
+      id: '/revenda'
+      path: '/revenda'
+      fullPath: '/revenda'
+      preLoaderRoute: typeof RevendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -334,9 +354,20 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
+  RevendaRoute: RevendaRoute,
   AcessoTokenRoute: AcessoTokenRoute,
   ApiPublicMercadopagoRoute: ApiPublicMercadopagoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
