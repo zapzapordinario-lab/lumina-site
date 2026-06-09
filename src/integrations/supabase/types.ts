@@ -441,7 +441,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      current_reseller_id: { Args: never; Returns: string }
       ensure_user_role: {
         Args: never
         Returns: Database["public"]["Enums"]["app_role"]
