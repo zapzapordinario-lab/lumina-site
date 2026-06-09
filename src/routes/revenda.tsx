@@ -46,7 +46,7 @@ function ResellerPanel() {
   const { data, isLoading } = useQuery({
     queryKey: ["my-reseller", session?.user?.id],
     enabled: !!session,
-    queryFn: async () => (await link({})) as { reseller: Reseller | null },
+    queryFn: async () => (await link()) as { reseller: Reseller | null },
   });
   const reseller = data?.reseller ?? null;
 
