@@ -19,6 +19,8 @@ import {
   Tv,
   Loader2,
   ShieldAlert,
+  DollarSign,
+  Store,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
