@@ -74,6 +74,9 @@ export const createPixCharge = createServerFn({ method: "POST" })
         description: data.description,
       });
     } else {
+      if (!data.reseller_id) {
+        return { ok: false as const, error: "Revendedor não identificado" };
+      }
       await supabaseAdmin.from("reseller_transactions").insert({
         reseller_id: data.reseller_id,
         type: "credit_purchase",
