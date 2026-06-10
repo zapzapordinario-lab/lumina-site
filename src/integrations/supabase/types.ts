@@ -134,6 +134,36 @@ export type Database = {
           },
         ]
       }
+      instruction_credentials: {
+        Row: {
+          active: boolean
+          client_name: string | null
+          created_at: string
+          id: string
+          password: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          active?: boolean
+          client_name?: string | null
+          created_at?: string
+          id?: string
+          password: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          active?: boolean
+          client_name?: string | null
+          created_at?: string
+          id?: string
+          password?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
       investments: {
         Row: {
           amount: number

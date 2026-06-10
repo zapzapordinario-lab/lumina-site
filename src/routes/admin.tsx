@@ -21,6 +21,7 @@ import {
   ShieldAlert,
   DollarSign,
   Store,
+  GraduationCap,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -39,6 +40,7 @@ const nav = [
   { to: "/admin/calendar", label: "Calendário", icon: CalendarDays },
   { to: "/admin/theme", label: "Tema", icon: Palette },
   { to: "/admin/iptv", label: "Acessos IPTV", icon: MonitorPlay },
+  { to: "/admin/instrucoes", label: "Instruções", icon: GraduationCap },
 ];
 
 function AdminLayout() {
