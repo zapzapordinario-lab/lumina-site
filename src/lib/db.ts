@@ -116,6 +116,15 @@ export interface IptvAccess {
   created_at: string;
 }
 
+export interface InstructionCredential {
+  id: string;
+  client_name: string | null;
+  username: string;
+  password: string;
+  active: boolean;
+  created_at: string;
+}
+
 // ---- Date / status helpers ----
 export function daysUntil(date: string | null): number | null {
   if (!date) return null;
