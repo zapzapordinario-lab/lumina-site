@@ -21,6 +21,7 @@ import {
   ShieldAlert,
   DollarSign,
   Store,
+  GraduationCap,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
