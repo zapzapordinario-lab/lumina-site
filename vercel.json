@@ -14,6 +14,8 @@
     { "source": "/admin/calendar", "destination": "/index.html" },
     { "source": "/admin/theme", "destination": "/index.html" },
     { "source": "/admin/iptv", "destination": "/index.html" },
+    { "source": "/admin/instrucoes", "destination": "/index.html" },
+    { "source": "/instrucoes", "destination": "/index.html" },
     { "source": "/revenda", "destination": "/index.html" },
     { "source": "/acesso/:token", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
