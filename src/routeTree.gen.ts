@@ -19,6 +19,7 @@ import { Route as AdminThemeRouteImport } from './routes/admin.theme'
 import { Route as AdminResellersRouteImport } from './routes/admin.resellers'
 import { Route as AdminPlansRouteImport } from './routes/admin.plans'
 import { Route as AdminIptvRouteImport } from './routes/admin.iptv'
+import { Route as AdminInstrucoesRouteImport } from './routes/admin.instrucoes'
 import { Route as AdminFinanceRouteImport } from './routes/admin.finance'
 import { Route as AdminClientsRouteImport } from './routes/admin.clients'
 import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
@@ -76,6 +77,11 @@ const AdminIptvRoute = AdminIptvRouteImport.update({
   path: '/iptv',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminInstrucoesRoute = AdminInstrucoesRouteImport.update({
+  id: '/instrucoes',
+  path: '/instrucoes',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminFinanceRoute = AdminFinanceRouteImport.update({
   id: '/finance',
   path: '/finance',
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/finance': typeof AdminFinanceRoute
+  '/admin/instrucoes': typeof AdminInstrucoesRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/resellers': typeof AdminResellersRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByTo {
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/finance': typeof AdminFinanceRoute
+  '/admin/instrucoes': typeof AdminInstrucoesRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/resellers': typeof AdminResellersRoute
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/admin/calendar': typeof AdminCalendarRoute
   '/admin/clients': typeof AdminClientsRoute
   '/admin/finance': typeof AdminFinanceRoute
+  '/admin/instrucoes': typeof AdminInstrucoesRoute
   '/admin/iptv': typeof AdminIptvRoute
   '/admin/plans': typeof AdminPlansRoute
   '/admin/resellers': typeof AdminResellersRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/admin/calendar'
     | '/admin/clients'
     | '/admin/finance'
+    | '/admin/instrucoes'
     | '/admin/iptv'
     | '/admin/plans'
     | '/admin/resellers'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/admin/calendar'
     | '/admin/clients'
     | '/admin/finance'
+    | '/admin/instrucoes'
     | '/admin/iptv'
     | '/admin/plans'
     | '/admin/resellers'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/admin/calendar'
     | '/admin/clients'
     | '/admin/finance'
+    | '/admin/instrucoes'
     | '/admin/iptv'
     | '/admin/plans'
     | '/admin/resellers'
@@ -299,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIptvRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/instrucoes': {
+      id: '/admin/instrucoes'
+      path: '/instrucoes'
+      fullPath: '/admin/instrucoes'
+      preLoaderRoute: typeof AdminInstrucoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/finance': {
       id: '/admin/finance'
       path: '/finance'
@@ -349,6 +368,7 @@ interface AdminRouteChildren {
   AdminCalendarRoute: typeof AdminCalendarRoute
   AdminClientsRoute: typeof AdminClientsRoute
   AdminFinanceRoute: typeof AdminFinanceRoute
+  AdminInstrucoesRoute: typeof AdminInstrucoesRoute
   AdminIptvRoute: typeof AdminIptvRoute
   AdminPlansRoute: typeof AdminPlansRoute
   AdminResellersRoute: typeof AdminResellersRoute
@@ -361,6 +381,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCalendarRoute: AdminCalendarRoute,
   AdminClientsRoute: AdminClientsRoute,
   AdminFinanceRoute: AdminFinanceRoute,
+  AdminInstrucoesRoute: AdminInstrucoesRoute,
   AdminIptvRoute: AdminIptvRoute,
   AdminPlansRoute: AdminPlansRoute,
   AdminResellersRoute: AdminResellersRoute,
@@ -382,3 +403,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
