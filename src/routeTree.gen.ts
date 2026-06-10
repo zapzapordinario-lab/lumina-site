@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RevendaRouteImport } from './routes/revenda'
+import { Route as InstrucoesRouteImport } from './routes/instrucoes'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
@@ -28,6 +29,11 @@ import { Route as ApiPublicMercadopagoRouteImport } from './routes/api.public.me
 const RevendaRoute = RevendaRouteImport.update({
   id: '/revenda',
   path: '/revenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstrucoesRoute = InstrucoesRouteImport.update({
+  id: '/instrucoes',
+  path: '/instrucoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/instrucoes': typeof InstrucoesRoute
   '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/instrucoes': typeof InstrucoesRoute
   '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/instrucoes': typeof InstrucoesRoute
   '/revenda': typeof RevendaRoute
   '/acesso/$token': typeof AcessoTokenRoute
   '/admin/automation': typeof AdminAutomationRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/instrucoes'
     | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/instrucoes'
     | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/instrucoes'
     | '/revenda'
     | '/acesso/$token'
     | '/admin/automation'
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
+  InstrucoesRoute: typeof InstrucoesRoute
   RevendaRoute: typeof RevendaRoute
   AcessoTokenRoute: typeof AcessoTokenRoute
   ApiPublicMercadopagoRoute: typeof ApiPublicMercadopagoRoute
@@ -221,6 +234,13 @@ declare module '@tanstack/react-router' {
       path: '/revenda'
       fullPath: '/revenda'
       preLoaderRoute: typeof RevendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/instrucoes': {
+      id: '/instrucoes'
+      path: '/instrucoes'
+      fullPath: '/instrucoes'
+      preLoaderRoute: typeof InstrucoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -354,6 +374,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
+  InstrucoesRoute: InstrucoesRoute,
   RevendaRoute: RevendaRoute,
   AcessoTokenRoute: AcessoTokenRoute,
   ApiPublicMercadopagoRoute: ApiPublicMercadopagoRoute,
@@ -361,3 +382,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
